@@ -1,0 +1,289 @@
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user profile within the LawMaster Pro application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserProfile entity."
+        },
+        "username": {
+          "type": "string",
+          "description": "The username of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "format": "email"
+        },
+        "themePreference": {
+          "type": "string",
+          "description": "The user's preferred theme (e.g., light, dark)."
+        },
+        "studyPreferences": {
+          "type": "string",
+          "description": "The user's study preferences (e.g., preferred legal topics, study time)."
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "email"
+      ]
+    },
+    "LegalTopic": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "LegalTopic",
+      "type": "object",
+      "description": "Represents a specific legal topic available in the application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the LegalTopic entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the legal topic."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the legal topic."
+        },
+        "content": {
+          "type": "string",
+          "description": "The detailed content of the legal topic."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "content"
+      ]
+    },
+    "GameChallenge": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GameChallenge",
+      "type": "object",
+      "description": "Represents a game-like challenge within the Gaming Mode.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the GameChallenge entity."
+        },
+        "legalTopicId": {
+          "type": "string",
+          "description": "Reference to LegalTopic. (Relationship: LegalTopic 1:N GameChallenge)"
+        },
+        "challengeType": {
+          "type": "string",
+          "description": "The type of challenge (e.g., quiz, scenario)."
+        },
+        "question": {
+          "type": "string",
+          "description": "The question or task presented in the challenge."
+        },
+        "answer": {
+          "type": "string",
+          "description": "The correct answer to the challenge."
+        },
+        "options": {
+          "type": "array",
+          "description": "Possible options for the challenge",
+          "items": {
+            "type": "string"
+          }
+        },
+        "difficulty": {
+          "type": "string",
+          "description": "The difficulty level of the challenge."
+        }
+      },
+      "required": [
+        "id",
+        "legalTopicId",
+        "challengeType",
+        "question",
+        "answer",
+        "difficulty"
+      ]
+    },
+    "ProgressRecord": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ProgressRecord",
+      "type": "object",
+      "description": "Represents a user's progress on a specific legal topic or game challenge.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ProgressRecord entity."
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: UserProfile 1:N ProgressRecord)"
+        },
+        "legalTopicId": {
+          "type": "string",
+          "description": "Reference to LegalTopic. (Relationship: LegalTopic 1:N ProgressRecord)"
+        },
+        "gameChallengeId": {
+          "type": "string",
+          "description": "Reference to GameChallenge. (Relationship: GameChallenge 1:N ProgressRecord)"
+        },
+        "completionDate": {
+          "type": "string",
+          "description": "The date and time when the user completed the topic or challenge.",
+          "format": "date-time"
+        },
+        "score": {
+          "type": "number",
+          "description": "The user's score on the topic or challenge."
+        }
+      },
+      "required": [
+        "id",
+        "userProfileId",
+        "completionDate",
+        "score"
+      ]
+    },
+    "Feedback": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Feedback",
+      "type": "object",
+      "description": "Represents user feedback or suggestions for the application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Feedback entity."
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: UserProfile 1:N Feedback)"
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "The date and time when the feedback was submitted.",
+          "format": "date-time"
+        },
+        "message": {
+          "type": "string",
+          "description": "The feedback message submitted by the user."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the feedback (e.g., new, reviewed, resolved)."
+        }
+      },
+      "required": [
+        "id",
+        "userProfileId",
+        "submissionDate",
+        "message",
+        "status"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores user profile information. All documents in this collection represent individual user profiles. Authorization is limited to the user identified by {userId}.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/progressRecords/{progressRecordId}",
+        "definition": {
+          "entityName": "ProgressRecord",
+          "schema": {
+            "$ref": "#/backend/entities/ProgressRecord"
+          },
+          "description": "Stores user's progress records. Parent user id is denormalized into each progressRecord document. This design facilitates Authorization Independence, allowing for simplified and robust security rules that do not rely on hierarchical `get()` calls. It also supports secure listing operations (QAPs) by restricting access to the user's own progress records.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "progressRecordId",
+              "description": "The unique identifier of the progress record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/feedback/{feedbackId}",
+        "definition": {
+          "entityName": "Feedback",
+          "schema": {
+            "$ref": "#/backend/entities/Feedback"
+          },
+          "description": "Stores user feedback. Parent user id is denormalized into each feedback document. This design facilitates Authorization Independence, allowing for simplified and robust security rules that do not rely on hierarchical `get()` calls.  It also supports secure listing operations (QAPs) by restricting access to the user's own feedback.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "feedbackId",
+              "description": "The unique identifier of the feedback."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/legalTopics/{legalTopicId}",
+        "definition": {
+          "entityName": "LegalTopic",
+          "schema": {
+            "$ref": "#/backend/entities/LegalTopic"
+          },
+          "description": "Stores legal topic information. Accessible to all users.",
+          "params": [
+            {
+              "name": "legalTopicId",
+              "description": "The unique identifier of the legal topic."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/gameChallenges/{gameChallengeId}",
+        "definition": {
+          "entityName": "GameChallenge",
+          "schema": {
+            "$ref": "#/backend/entities/GameChallenge"
+          },
+          "description": "Stores game challenge information. Accessible to all users.",
+          "params": [
+            {
+              "name": "gameChallengeId",
+              "description": "The unique identifier of the game challenge."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to ensure security, scalability, and ease of debugging, adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC (Database-based Access Control), and QAPs (Rules are not Filters).  It is structured to support the LawMaster Pro application, focusing on user profiles, legal topics, game challenges, progress records, and feedback.\n\n**Authorization Independence:** Achieved through denormalization. For instance, any subcollection requiring authorization based on a parent document's attributes will have those attributes copied into the subcollection's documents.  This eliminates the need for `get()` calls in security rules, enabling atomic operations.\n\n**Structural Segregation:**  Data with different access requirements are stored in separate collections. User-specific data is stored under the `/users/{userId}` path, ensuring private access.  Public data or global configurations are stored in top-level collections.\n\n**Access Modeling:** Follows consistent patterns. User-owned data like progress records and feedback are stored under the user's path (`/users/{userId}`). The legal topics and game challenges are stored as a global collection.\n\n**QAPs Support:** Achieved via structural segregation and path-based ownership. Listing legal topics and game challenges are public (no filtering needed). Listing progress records is limited to the current user (via the path-based rule on `/users/{userId}/progressRecords`).\n\n**Invariants:**  Timestamps (e.g., `submissionDate`, `completionDate`) can be enforced via rules.  Ownership is strictly enforced via path-based rules (`/users/{userId}/...`).\n"
+  }
+}

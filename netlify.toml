@@ -1,10 +1,16 @@
 [build]
-  command = "next build"
+  command = "npm run build"
   publish = ".next"
 
 [build.environment]
   # Disable telemetry to speed up builds
   NEXT_TELEMETRY_DISABLED = "1"
+
+[build.processing]
+  skip_processing = false
+
+[context.production]
+  branch = "main"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

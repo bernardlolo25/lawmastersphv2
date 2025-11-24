@@ -1,0 +1,136 @@
+{
+  "placeholderImages": [
+    {
+      "id": "constitutional-law",
+      "description": "An image representing constitutional law, perhaps a government building.",
+      "imageUrl": "https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnb3Zlcm5tZW50JTIwYnVpbGRpbmd8ZW58MHx8fHwxNzYzNjE1NjIxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "government building"
+    },
+    {
+      "id": "criminal-law",
+      "description": "An image representing criminal law, such as gavels or a courtroom.",
+      "imageUrl": "https://images.unsplash.com/photo-1660784670019-33a36fd82515?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxnYXZlbCUyMGNvdXJ0cm9vbXxlbnwwfHx8fDE3NjM3MDYyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gavel courtroom"
+    },
+    {
+      "id": "corporate-law",
+      "description": "An image representing corporate law, such as a modern office building.",
+      "imageUrl": "https://images.unsplash.com/photo-1600531529272-023c4b821f14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxvZmZpY2UlMjBidWlsZGluZ3xlbnwwfHx8fDE3NjM2MDg4Njd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "office building"
+    },
+    {
+      "id": "family-law",
+      "description": "An image representing family law, perhaps a stylized family icon.",
+      "imageUrl": "https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZmFtaWx5JTIwaGFuZHN8ZW58MHx8fHwxNzYzNzA2MjE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "family hands"
+    },
+    {
+      "id": "intellectual-property",
+      "description": "An image representing intellectual property, like a lightbulb or patent drawing.",
+      "imageUrl": "https://images.unsplash.com/photo-1595389397394-01fed35d24bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsaWdodGJ1bGIlMjBpZGVhfGVufDB8fHx8MTc2MzY2Mzg2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lightbulb idea"
+    },
+    {
+      "id": "environmental-law",
+      "description": "An image representing environmental law, showing nature and industry.",
+      "imageUrl": "https://images.unsplash.com/photo-1702556974987-19c847cb6bdb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxuYXR1cmUlMjBpbmR1c3RyeXxlbnwwfHx8fDE3NjM3MDYyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nature industry"
+    },
+    {
+      "id": "dashboard-hero",
+      "description": "A welcoming image for the dashboard, maybe a modern library or study area.",
+      "imageUrl": "https://images.unsplash.com/photo-1546953304-5d96f43c2e94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsaWJyYXJ5JTIwc3R1ZHl8ZW58MHx8fHwxNzYzNzA2MjE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "library study"
+    },
+    {
+      "id": "feature-library",
+      "description": "An image for the library feature in the carousel.",
+      "imageUrl": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsaWJyYXJ5fGVufDB8fHx8MTc2NTU5NzYyNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "books library"
+    },
+    {
+      "id": "feature-gaming",
+      "description": "An image for the gaming feature in the carousel.",
+      "imageUrl": "https://images.unsplash.com/photo-1581351123004-757df051db1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYW1pbmclMjBjb25zb2xlfGVufDB8fHx8MTc2NTU5NzYyNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gaming console"
+    },
+    {
+      "id": "feature-multiplayer",
+      "description": "An image for the multiplayer feature in the carousel.",
+      "imageUrl": "https://images.unsplash.com/photo-1627916599763-a384e5557b44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHwxcjElMjB2ZXJzdXN8ZW58MHx8fHwxNzY1NTk3NjI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "versus screen"
+    },
+    {
+      "id": "ph-const-law",
+      "description": "Image of the Philippine Supreme Court building.",
+      "imageUrl": "https://images.unsplash.com/photo-1575225955002-0dbb52a6d1ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaGlsaXBwaW5lJTIwZ292ZXJubWVudHxlbnwwfHx8fDE3NjM3MDc2MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "philippine government"
+    },
+    {
+      "id": "ph-civil-code",
+      "description": "Image of a family, representing family relations.",
+      "imageUrl": "https://images.unsplash.com/photo-1695126931872-656b1c74e1a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwaGlsaXBwaW5lJTIwZmFtaWx5fGVufDB8fHx8MTc2MzcwNzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "philippine family"
+    },
+    {
+      "id": "ph-revised-penal-code",
+      "description": "Scales of justice, representing the penal code.",
+      "imageUrl": "https://images.unsplash.com/photo-1589578527966-fdac0f44566c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzY2FsZXMlMjBqdXN0aWNlfGVufDB8fHx8MTc2MzcwNzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "scales justice"
+    },
+    {
+      "id": "ph-labor-code",
+      "description": "Image of Filipino workers.",
+      "imageUrl": "https://images.unsplash.com/photo-1622611935038-1c4caa0db5d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmaWxpcGlubyUyMHdvcmtlcnN8ZW58MHx8fHwxNzYzNzA3NjAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "filipino workers"
+    },
+    {
+      "id": "ph-corporation-code",
+      "description": "Makati business district skyline.",
+      "imageUrl": "https://images.unsplash.com/photo-1601237845062-dd86e5627630?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFrYXRpJTIwc2t5bGluZXxlbnwwfHx8fDE3NjM3MDc2MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "makati skyline"
+    },
+    {
+      "id": "ph-taxation-law",
+      "description": "Image of the Bureau of Internal Revenue (BIR) building.",
+      "imageUrl": "https://images.unsplash.com/photo-1648481126470-89d868c3c19f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaGlsaXBwaW5lJTIwdGF4fGVufDB8fHx8MTc2MzcwNzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "philippine tax"
+    },
+    {
+      "id": "ph-commercial-law",
+      "description": "Port of Manila with cargo ships.",
+      "imageUrl": "https://images.unsplash.com/photo-1724733216142-1f32b4006809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW5pbGElMjBwb3J0fGVufDB8fHx8MTc2MzcwNzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "manila port"
+    },
+    {
+      "id": "ph-remedial-law",
+      "description": "A courtroom interior.",
+      "imageUrl": "https://images.unsplash.com/photo-1759038085950-1234ca8f5fed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaGlsaXBwaW5lJTIwY291cnRyb29tfGVufDB8fHx8MTc2MzcwNzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "philippine courtroom"
+    },
+    {
+      "id": "ph-legal-ethics",
+      "description": "Lawyers taking an oath.",
+      "imageUrl": "https://images.unsplash.com/photo-1732904953955-486acf509c02?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXd5ZXIlMjBvYXRofGVufDB8fHx8MTc2MzcwNzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lawyer oath"
+    },
+    {
+      "id": "ph-political-law",
+      "description": "Philippine flag with the Malacañang Palace.",
+      "imageUrl": "https://images.unsplash.com/photo-1648277453366-07c880f074b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwaGlsaXBwaW5lJTIwcG9saXRpY3N8ZW58MHx8fHwxNzYzNzA3NjAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "philippine politics"
+    },
+    {
+      "id": "ph-environmental-law",
+      "description": "A pristine beach in Palawan.",
+      "imageUrl": "https://images.unsplash.com/photo-1508906233311-4334d5c34678?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGhpbGlwcGluZSUyMG5hdHVyZXxlbnwwfHx8fDE3NjM3MDc2MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "philippine nature"
+    },
+    {
+      "id": "ph-intellectual-property-code",
+      "description": "A brightly lit lightbulb.",
+      "imageUrl": "https://images.unsplash.com/photo-1641733326251-e6acef18d3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxpZGVhJTIwbGlnaHRidWxifGVufDB8fHx8MTc2MzcwNzYwMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "idea lightbulb"
+    }
+  ]
+}
