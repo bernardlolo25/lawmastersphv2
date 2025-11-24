@@ -1,0 +1,86 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Function: Check if user is admin
+    function isAdmin() {
+      // NOTE: This rule requires setting a custom claim `admin:true` on the user's auth token.
+      // This is a temporary solution for the admin user 'bernardlolo25@gmail.com' (UID: b96QiEVOYJgkJPulp8d1d4654TN2)
+      return request.auth != null && (request.auth.token.admin == true || request.auth.uid == 'b96QiEVOYJgkJPulp8d1d4654TN2');
+    }
+
+    // Standard User-Owned Data
+    // Users can read and write to their own data within their user document.
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Publicly Readable Collections
+    // Any user can read from these collections.
+    match /legal_topics/{topicId} {
+      allow read: if true;
+    }
+    match /books/{bookId} {
+      allow read: if true;
+    }
+    match /questions/{questionId} {
+      allow read: if true;
+    }
+     match /site_content/{contentId} {
+      allow read: if true;
+    }
+
+    // Rules for specific collections that require user authentication
+    match /game_results/{resultId} {
+        // Any authenticated user can view game results (for leaderboards).
+        allow read: if request.auth != null;
+        // A user can only create a game result for themselves.
+        allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    }
+    
+    match /matches/{matchId} {
+        allow read, write: if request.auth != null;
+    }
+    
+    // --- FEEDBACK RULES ---
+    // Logged-in users can create feedback for themselves.
+    match /feedback/{feedbackId} {
+        allow create: if request.auth != null && request.resource.data.userProfileId == request.auth.uid;
+        // Admins can read, update, and delete any feedback.
+        allow read, update, delete: if isAdmin();
+    }
+    // Admins can list all feedback.
+    match /feedback {
+        allow list: if isAdmin();
+    }
+    
+    // --- NOTIFICATION RULES ---
+    // Any authenticated user can read notifications.
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null;
+      // Only admins can write notifications.
+      allow write: if isAdmin();
+    }
+
+
+    // --- Admin Override Rules ---
+    // This section grants full write access to administrators on collections
+    // that have restricted public write access.
+    match /legal_topics/{topicId} {
+      allow write: if isAdmin();
+    }
+    match /books/{bookId} {
+       allow write: if isAdmin();
+    }
+    match /questions/{questionId} {
+        allow write: if isAdmin();
+    }
+    match /site_content/{contentId} {
+        allow write: if isAdmin();
+    }
+     match /game_results/{resultId} {
+        allow delete: if isAdmin();
+     }
+  }
+}
