@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -28,7 +27,7 @@ export function usePresence() {
 
   useEffect(() => {
     // This hook is only active if we have a user and a database connection.
-    if (!user || !database || !database.app.options.databaseURL) {
+    if (!user || !database) {
       return;
     }
 
@@ -105,7 +104,7 @@ export function useOnlineUsers() {
     const { database } = useFirebase();
 
     const fetchOnlineUsers = async () => {
-        if (!database || !database.app.options.databaseURL) return [];
+        if (!database) return [];
 
         const statusRef = ref(database, 'status');
         const snapshot = await new Promise<any>((resolve) => onValue(statusRef, resolve, { onlyOnce: true }));
@@ -128,7 +127,7 @@ export function useOnlineUsers() {
     return useQuery<PresenceUser[], Error>({
         queryKey: ['onlineUsers'],
         queryFn: fetchOnlineUsers,
-        enabled: !!database && !!database.app.options.databaseURL,
+        enabled: !!database,
         refetchInterval: 15000, // Refetch every 15 seconds
     });
 }
@@ -142,7 +141,7 @@ export function useConnectionStatus() {
     const { database } = useFirebase();
 
     useEffect(() => {
-        if (!database || !database.app.options.databaseURL) {
+        if (!database) {
             setIsConnected(false);
             return;
         };

@@ -21,6 +21,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -35,7 +36,7 @@ export default function LobbyPage() {
     const { toast } = useToast();
 
     const [challengeTarget, setChallengeTarget] = React.useState<any | null>(null);
-    const [isChallengeDialogOpen, setIsChallengeDialogOpen] = React.useState(false);
+    const [isTopicSelectOpen, setIsTopicSelectOpen] = React.useState(false);
     const [isCreatingMatch, setIsCreatingMatch] = React.useState(false);
     const [selectedTopicId, setSelectedTopicId] = React.useState<string>('');
     const [incomingChallenge, setIncomingChallenge] = React.useState<Match | null>(null);
@@ -90,8 +91,15 @@ export default function LobbyPage() {
             return;
         }
         setChallengeTarget(targetUser);
-        setIsChallengeDialogOpen(true);
     };
+    
+    const handleConfirmChallenge = () => {
+        // This function now just opens the topic selection dialog
+        if (challengeTarget) {
+            setIsTopicSelectOpen(true);
+        }
+    };
+
 
     const handleSendChallenge = async () => {
         if (!user || !firestore || !challengeTarget || !selectedTopicId || isCreatingMatch) return;
@@ -152,7 +160,8 @@ export default function LobbyPage() {
             const matchRef = await addDoc(collection(firestore, 'matches'), newMatch);
             
             toast({ title: 'Challenge Sent!', description: `Waiting for ${challengeTarget.displayName} to respond.` });
-            setIsChallengeDialogOpen(false);
+            setIsTopicSelectOpen(false);
+            setChallengeTarget(null);
             router.push(`/multiplayer/match/${matchRef.id}`);
 
         } catch (error: any) {
@@ -263,14 +272,31 @@ export default function LobbyPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <Button
-                                        size="sm"
-                                        onClick={() => handleChallengeClick(u)}
-                                        disabled={u.state === 'in-game'}
-                                    >
-                                        <Swords className="mr-2 h-4 w-4" />
-                                        {u.state === 'in-game' ? 'In a Match' : 'Challenge'}
-                                    </Button>
+                                    <AlertDialog onOpenChange={(open) => !open && setChallengeTarget(null)}>
+                                        <AlertDialogTrigger asChild>
+                                            <Button
+                                                size="sm"
+                                                onClick={() => handleChallengeClick(u)}
+                                                disabled={u.state === 'in-game'}
+                                            >
+                                                <Swords className="mr-2 h-4 w-4" />
+                                                {u.state === 'in-game' ? 'In a Match' : 'Challenge'}
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Challenge {u.displayName}?</AlertDialogTitle>
+                                                <AlertDialogDescription>Are you sure you want to send a match request to this player?</AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction onClick={handleConfirmChallenge}>
+                                                    <Swords className="mr-2 h-4 w-4" />
+                                                    Yes, Challenge
+                                                </AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
                                 </div>
                             ))}
                         </div>
@@ -282,18 +308,18 @@ export default function LobbyPage() {
                     )}
                 </CardContent>
             </Card>
-            
-            {/* Outgoing Challenge Dialog */}
-            <AlertDialog open={isChallengeDialogOpen} onOpenChange={setIsChallengeDialogOpen}>
+
+            {/* Topic Selection Dialog */}
+            <AlertDialog open={isTopicSelectOpen} onOpenChange={setIsTopicSelectOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Challenge {challengeTarget?.displayName}</AlertDialogTitle>
-                        <AlertDialogDescription>Select a topic for your quiz battle.</AlertDialogDescription>
+                        <AlertDialogTitle>Select a Topic</AlertDialogTitle>
+                        <AlertDialogDescription>Choose the subject for your quiz battle against {challengeTarget?.displayName}.</AlertDialogDescription>
                     </AlertDialogHeader>
                     <div className="py-4 space-y-4">
-                         <div className="space-y-2">
+                        <div className="space-y-2">
                             <Label htmlFor="topic-select">Topic</Label>
-                             <Select onValueChange={setSelectedTopicId} value={selectedTopicId}>
+                            <Select onValueChange={setSelectedTopicId} value={selectedTopicId}>
                                 <SelectTrigger id="topic-select">
                                     <SelectValue placeholder="Select a topic..." />
                                 </SelectTrigger>
@@ -307,8 +333,8 @@ export default function LobbyPage() {
                                     )}
                                 </SelectContent>
                             </Select>
-                         </div>
-                         {selectedTopicId && (<p className="text-sm text-muted-foreground">{topics?.find(t => t.id === selectedTopicId)?.description}</p>)}
+                        </div>
+                        {selectedTopicId && (<p className="text-sm text-muted-foreground">{topics?.find(t => t.id === selectedTopicId)?.description}</p>)}
                     </div>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -320,7 +346,7 @@ export default function LobbyPage() {
                 </AlertDialogContent>
             </AlertDialog>
 
-             {/* Incoming Challenge Dialog */}
+            {/* Incoming Challenge Dialog */}
             <AlertDialog open={!!incomingChallenge}>
                 <AlertDialogContent>
                     <AlertDialogHeader>

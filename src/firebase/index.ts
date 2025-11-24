@@ -16,11 +16,15 @@ export function initializeFirebase() {
 }
 
 export function getSdks(firebaseApp: FirebaseApp) {
+  // Conditionally initialize the database only if the URL is provided.
+  // This prevents build-time errors if the environment variable is missing.
+  const database = firebaseConfig.databaseURL ? getDatabase(firebaseApp) : null;
+
   return {
     firebaseApp,
     auth: getAuth(firebaseApp),
     firestore: getFirestore(firebaseApp),
-    database: getDatabase(firebaseApp),
+    database: database,
   };
 }
 

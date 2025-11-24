@@ -12,7 +12,7 @@ interface FirebaseProviderProps {
   firebaseApp: FirebaseApp;
   firestore: Firestore;
   auth: Auth;
-  database: Database;
+  database: Database | null; // Allow database to be null
 }
 
 // Internal state for user authentication
@@ -40,7 +40,7 @@ export interface FirebaseServicesAndUser {
   firebaseApp: FirebaseApp;
   firestore: Firestore;
   auth: Auth;
-  database: Database;
+  database: Database | null;
   user: User | null;
   isUserLoading: boolean;
   userError: Error | null;
@@ -96,13 +96,13 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
 
   // Memoize the context value
   const contextValue = useMemo((): FirebaseContextState => {
-    const servicesAvailable = !!(firebaseApp && firestore && auth && database);
+    const servicesAvailable = !!(firebaseApp && firestore && auth); // Database is now optional
     return {
       areServicesAvailable: servicesAvailable,
       firebaseApp: servicesAvailable ? firebaseApp : null,
       firestore: servicesAvailable ? firestore : null,
       auth: servicesAvailable ? auth : null,
-      database: servicesAvailable ? database : null,
+      database: database, // Can be null
       user: userAuthState.user,
       isUserLoading: userAuthState.isUserLoading,
       userError: userAuthState.userError,
@@ -128,7 +128,7 @@ export const useFirebase = (): FirebaseServicesAndUser => {
     throw new Error('useFirebase must be used within a FirebaseProvider.');
   }
 
-  if (!context.areServicesAvailable || !context.firebaseApp || !context.firestore || !context.auth || !context.database) {
+  if (!context.areServicesAvailable || !context.firebaseApp || !context.firestore || !context.auth) {
     throw new Error('Firebase core services not available. Check FirebaseProvider props.');
   }
 
@@ -136,7 +136,7 @@ export const useFirebase = (): FirebaseServicesAndUser => {
     firebaseApp: context.firebaseApp,
     firestore: context.firestore,
     auth: context.auth,
-    database: context.database,
+    database: context.database, // Can be null
     user: context.user,
     isUserLoading: context.isUserLoading,
     userError: context.userError,
