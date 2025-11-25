@@ -7,6 +7,8 @@ import { getFirestore, type Firestore } from 'firebase/firestore';
 import { getDatabase, type Database } from 'firebase/database';
 
 let firebaseApp: FirebaseApp;
+
+// Standard Firebase initialization
 if (!getApps().length) {
   firebaseApp = initializeApp(firebaseConfig);
 } else {
@@ -16,20 +18,26 @@ if (!getApps().length) {
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
-// Safely initialize Realtime Database only on the client-side
+// Initialize database safely, only if the URL is present
 let database: Database | null = null;
-if (typeof window !== 'undefined' && firebaseConfig.databaseURL) {
+if (firebaseConfig.databaseURL) {
+  try {
     database = getDatabase(firebaseApp);
+  } catch (e) {
+    console.error("Could not initialize Firebase Realtime Database:", e);
+  }
 }
 
+// Export a function to get the initialized services
 export function initializeFirebase() {
   return {
     firebaseApp,
     auth,
     firestore,
-    database,
+    database, // This will be null if databaseURL is not set or invalid
   };
 }
+
 
 // Re-export other necessary hooks and providers
 export * from './provider';
