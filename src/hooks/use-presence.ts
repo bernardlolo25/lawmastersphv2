@@ -26,7 +26,8 @@ export function usePresence() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // This hook is only active if we have a user and a database connection.
+    // CRITICAL FIX: If the database is not initialized (e.g., missing URL), do nothing.
+    // This prevents the entire app from crashing on deployment or client-side.
     if (!user || !database) {
       return;
     }
@@ -104,6 +105,7 @@ export function useOnlineUsers() {
     const { database } = useFirebase();
 
     const fetchOnlineUsers = async () => {
+        // CRITICAL FIX: If the database is not initialized, return an empty array.
         if (!database) return [];
 
         const statusRef = ref(database, 'status');
@@ -141,6 +143,7 @@ export function useConnectionStatus() {
     const { database } = useFirebase();
 
     useEffect(() => {
+        // CRITICAL FIX: If the database is not initialized, assume not connected and do nothing.
         if (!database) {
             setIsConnected(false);
             return;
